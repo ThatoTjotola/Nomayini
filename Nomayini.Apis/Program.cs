@@ -78,6 +78,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 var app = builder.Build();
 
 // Map OpenAPI endpoint);
+app.UseCors(builder => builder
+    .WithOrigins("https://jimmytjotola.org") // Your Cloudflare domain
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials());
 app.MapOpenApi();
 app.MapScalarApiReference(options =>
 {
