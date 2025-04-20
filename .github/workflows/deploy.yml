@@ -1,19 +1,29 @@
-name: Deploy on Pi Runner
+name: Deploy to Raspberry Pi
 
 on:
   push:
-    branches: [master]
+    branches: [ master ]
 
 jobs:
   deploy:
     runs-on: [self-hosted, Linux, ARM64]
 
     steps:
-    - name: Checkout Code
+    - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Publish .NET App
+    - name: Use local .NET 9 SDK
       run: |
+        echo "Using local .NET 9 SDK"
+        export DOTNET_ROOT=$HOME/dotnet
+        export PATH=$HOME/dotnet:$PATH
+        dotnet --version
+
+    - name: Publish .NET app
+      run: |
+        export DOTNET_ROOT=$HOME/dotnet
+        export PATH=$HOME/dotnet:$PATH
+
         dotnet publish ./Nomayini.Apis/Nomayini.Apis.csproj \
           -c Release \
           -r linux-arm64 \
@@ -25,3 +35,4 @@ jobs:
         cd /home/pi/api
         docker compose down
         docker compose up -d
+
