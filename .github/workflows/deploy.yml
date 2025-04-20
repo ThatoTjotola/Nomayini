@@ -14,23 +14,23 @@ jobs:
 
     - name: Setup .NET 9 SDK
       run: |
-        # Install dependencies
-        sudo apt-get update
-        sudo apt-get install -y wget ca-certificates
+        # Ensure the dotnet directory exists and is owned by the runner
+        mkdir -p $HOME/dotnet
+        sudo chown -R $USER:$USER $HOME/dotnet
+        
+        # Download and install .NET SDK 9.0
+        curl -L -o dotnet-sdk-9.0.100-linux-arm64.tar.gz https://download.visualstudio.microsoft.com/download/pr/af8286a2-4312-432d-9794-c5223c6cc12d/4c45fd5e0f1a6b382ab7bce1d0f2775d/dotnet-sdk-9.0.100-linux-arm64.tar.gz
+        
+        # Extract the SDK into the dotnet directory
+        tar -C $HOME/dotnet -xvf dotnet-sdk-9.0.100-linux-arm64.tar.gz
+        
+        # Set DOTNET_ROOT and update PATH
+        echo "DOTNET_ROOT=$HOME/dotnet" >> $GITHUB_ENV
+        echo "PATH=\$PATH:$HOME/dotnet" >> $GITHUB_ENV
 
-        # Create the installation directory for dotnet and set correct permissions
-        sudo mkdir -p /home/tjotola/dotnet
-        sudo chown -R tjotola:tjotola /home/tjotola/dotnet
-
-        # Correct download URL for .NET SDK
-        wget https://download.visualstudio.microsoft.com/download/pr/af8286a2-4312-432d-9794-c5223c6cc12d/4c45fd5e0f1a6b382ab7bce1d0f2775d/dotnet-sdk-9.0.100-linux-arm64.tar.gz -O dotnet-sdk-9.0.100-linux-arm64.tar.gz
-
-        # Extract .NET SDK to the correct directory
-        tar -xzvf dotnet-sdk-9.0.100-linux-arm64.tar.gz -C /home/tjotola/dotnet
-
-        # Add dotnet to PATH for the current session
-        echo "export PATH=$PATH:/home/tjotola/dotnet" >> ~/.bashrc
-        source ~/.bashrc
+    - name: Verify .NET Installation
+      run: |
+        dotnet --version
 
     - name: Publish .NET app
       run: |
@@ -38,10 +38,10 @@ jobs:
           -c Release \
           -r linux-arm64 \
           --self-contained false \
-          -o /home/tjotola/api/publish
+          -o /home/pi/api/publish
 
     - name: Restart Docker Compose
       run: |
-        cd /home/tjotola/api
+        cd /home/pi/api
         docker compose down
         docker compose up -d
