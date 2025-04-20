@@ -15,7 +15,7 @@ services:
       - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__DefaultConnection=Data Source=/app/data/auth.db
     working_dir: /app
-    command: ["./Nomayini.Apis"]
+    command: ["dotnet", "Nomayini.Apis.dll"]
 
   netdata:
     image: netdata/netdata:latest
