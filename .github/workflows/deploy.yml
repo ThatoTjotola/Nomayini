@@ -1,41 +1,18 @@
-name: Deploy to Raspberry Pi (Local Runner)
+name: Deploy on Pi Runner
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   deploy:
     runs-on: [self-hosted, Linux, ARM64]
 
     steps:
-    - name: Checkout code
+    - name: Checkout Code
       uses: actions/checkout@v3
 
-    - name: Setup .NET 9 SDK
-      run: |
-        # Ensure the dotnet directory exists and is owned by the runner
-        mkdir -p $HOME/dotnet
-        sudo chown -R $USER:$USER $HOME/dotnet
-        
-        # Download and install .NET SDK 9.0
-        curl -f -L -o dotnet-sdk-9.0.100-linux-arm64.tar.gz https://download.visualstudio.microsoft.com/download/pr/af8286a2-4312-432d-9794-c5223c6cc12d/4c45fd5e0f1a6b382ab7bce1d0f2775d/dotnet-sdk-9.0.100-linux-arm64.tar.gz
-        
-        # Verify the downloaded file is valid
-        file dotnet-sdk-9.0.100-linux-arm64.tar.gz
-
-        # Extract the SDK into the dotnet directory
-        tar -C $HOME/dotnet -xvf dotnet-sdk-9.0.100-linux-arm64.tar.gz
-        
-        # Set DOTNET_ROOT and update PATH
-        echo "DOTNET_ROOT=$HOME/dotnet" >> $GITHUB_ENV
-        echo "PATH=\$PATH:$HOME/dotnet" >> $GITHUB_ENV
-
-    - name: Verify .NET Installation
-      run: |
-        dotnet --version
-
-    - name: Publish .NET app
+    - name: Publish .NET App
       run: |
         dotnet publish ./Nomayini.Apis/Nomayini.Apis.csproj \
           -c Release \
