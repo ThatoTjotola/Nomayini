@@ -11,7 +11,19 @@ namespace Nomayini.Apis.Feature.Auth.Register
             {
                 var result = await mediator.Send(command);
                 return Results.Created();
-            });
+            }).AllowAnonymous()
+            .WithName("RegisterUser")
+            .WithSummary("Registers a new user")
+            .WithDescription("""
+                Registers a new user account. Successful registration returns:
+                - User ID
+                - Email address
+                - Instructions for login
+                """)
+            .Produces(StatusCodes.Status201Created, contentType: "application/json")
+            .ProducesProblem(StatusCodes.Status400BadRequest)
+            .ProducesProblem(StatusCodes.Status409Conflict)
+            .WithOpenApi();
         }
 
     }

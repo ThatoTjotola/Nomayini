@@ -26,15 +26,21 @@ namespace Nomayini.Apis.Feature.Auth.Login
                         title: ex.Title);
                 }
             })
-            .Produces<LoginResponse>(StatusCodes.Status200OK)
+            .AllowAnonymous()
+            .WithName("AuthenticateUser")
+            .WithSummary("Logins a user authentication")
+            .WithDescription("""
+                Authenticates user credentials and returns JWT token for authorization.
+                **Required Fields:**
+                - `email`: Registered email address
+                - `password`: Account password
+                **Response Includes:**
+                - Access token (JWT)
+                """)
+            .Produces<LoginResponse>(StatusCodes.Status200OK, contentType: "application/json")
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status401Unauthorized)
-            .WithOpenApi(operation =>
-            {
-                operation.Summary = "User login endpoint";
-                operation.Description = "Authenticates user and returns JWT token";
-                return operation;
-            });
+            .WithOpenApi();
         }
     }
 }
