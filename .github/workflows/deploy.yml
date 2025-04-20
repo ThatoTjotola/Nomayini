@@ -1,0 +1,48 @@
+name: Deploy to Raspberry Pi
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET 8 SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Publish .NET app for linux-arm64
+      run: |
+        dotnet publish ./Nomayini.Apis/Nomayini.Apis.csproj \
+          -c Release \
+          -r linux-arm64 \
+          --self-contained false \
+          -o publish
+
+    - name: Copy publish folder to Raspberry Pi
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.PI_HOST }}
+        username: ${{ secrets.PI_USER }}
+        password: ${{ secrets.PI_PASS }}
+        port: 22
+        source: "./publish/*"
+        target: "/home/pi/api/publish"
+
+    - name: Restart Docker Compose on Pi
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.PI_HOST }}
+        username: ${{ secrets.PI_USER }}
+        password: ${{ secrets.PI_PASS }}
+        port: 22
+        script: |
+          cd /home/pi/api
+          docker compose down
+          docker compose up -d
