@@ -22,8 +22,8 @@ jobs:
         sudo mkdir -p /home/tjotola/dotnet
         sudo chown -R tjotola:tjotola /home/tjotola/dotnet
 
-        # Download the .NET SDK
-        wget https://download.visualstudio.microsoft.com/download/pr/dc233709-c5e1-4ac3-bd0e-8a5d9115e9fc/3d7f04d6c7c8a87b96a2e6d9d40f49cc/dotnet-sdk-9.0.100-linux-arm64.tar.gz
+        # Correct download URL for .NET SDK
+        wget https://download.visualstudio.microsoft.com/download/pr/af8286a2-4312-432d-9794-c5223c6cc12d/4c45fd5e0f1a6b382ab7bce1d0f2775d/dotnet-sdk-9.0.100-linux-arm64.tar.gz -O dotnet-sdk-9.0.100-linux-arm64.tar.gz
 
         # Extract .NET SDK to the correct directory
         tar -xzvf dotnet-sdk-9.0.100-linux-arm64.tar.gz -C /home/tjotola/dotnet
