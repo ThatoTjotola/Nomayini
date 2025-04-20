@@ -12,9 +12,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Setup Docker Buildx
-      uses: docker/setup-buildx-action@v2
-
     - name: Use local .NET 9 SDK
       run: |
         echo "Using local .NET 9 SDK"
@@ -33,13 +30,8 @@ jobs:
           --self-contained false \
           -o /home/pi/api/publish
 
-    - name: Build Docker image
-      run: |
-        cd /home/pi/api
-        docker build -t nomayini-api .
-
     - name: Restart Docker Compose
       run: |
         cd /home/pi/api
         docker compose down
-        docker compose up -d --build
+        docker compose up -d
