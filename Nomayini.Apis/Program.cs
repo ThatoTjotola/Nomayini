@@ -78,12 +78,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 var app = builder.Build();
 
 // Map OpenAPI endpoint
+app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.MapOpenApi();
 app.MapScalarApiReference(options =>
 {
     options
         .WithTitle("JimmyJams APIs")
-        .WithTheme(ScalarTheme.BluePlanet)
+        .WithTheme(ScalarTheme.Mars)
         .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
 
 });
