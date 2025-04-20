@@ -32,6 +32,7 @@ builder.Services.AddOpenApi(options =>
                 This API is intended primarily for my personal projects and increasing my ability too write efficient code, also i cant afford microsoft and amazon subscriptions.
                 So its gonna be cloudflare tunnels and my little containers for now, might just mess around and install Kubernettes k3s.
                 Rate limited to 1000 requests per hour.
+                Please utlizing Postman or consume api in a different way Scalar is misbehaving
                 """,
             Contact = new()
             {
