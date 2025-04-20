@@ -77,8 +77,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
-// Map OpenAPI endpoint
-app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+// Map OpenAPI endpoint);
 app.MapOpenApi();
 app.MapScalarApiReference(options =>
 {
