@@ -19,8 +19,11 @@ jobs:
         sudo chown -R $USER:$USER $HOME/dotnet
         
         # Download and install .NET SDK 9.0
-        curl -L -o dotnet-sdk-9.0.100-linux-arm64.tar.gz https://download.visualstudio.microsoft.com/download/pr/af8286a2-4312-432d-9794-c5223c6cc12d/4c45fd5e0f1a6b382ab7bce1d0f2775d/dotnet-sdk-9.0.100-linux-arm64.tar.gz
+        curl -f -L -o dotnet-sdk-9.0.100-linux-arm64.tar.gz https://download.visualstudio.microsoft.com/download/pr/af8286a2-4312-432d-9794-c5223c6cc12d/4c45fd5e0f1a6b382ab7bce1d0f2775d/dotnet-sdk-9.0.100-linux-arm64.tar.gz
         
+        # Verify the downloaded file is valid
+        file dotnet-sdk-9.0.100-linux-arm64.tar.gz
+
         # Extract the SDK into the dotnet directory
         tar -C $HOME/dotnet -xvf dotnet-sdk-9.0.100-linux-arm64.tar.gz
         
