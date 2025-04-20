@@ -1,0 +1,46 @@
+name: Deploy to Raspberry Pi
+
+on:
+  push:
+    branches: [dev]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '9.0'
+
+    - name: Build and Publish API
+      run: |
+        dotnet restore
+        dotnet publish -c Release -o publish -r linux-arm64 --no-self-contained
+
+    - name: Transfer files to Pi
+      uses: appleboy/scp-action@v0.1.4
+      with:
+        host: ${{ secrets.PI_HOST }}
+        username: ${{ secrets.PI_USER }}
+        key: ${{ secrets.PI_SSH_KEY }}
+        port: ${{ secrets.PI_PORT || 22 }}
+        source: "publish/,docker-compose.yml"
+        target: "/home/pi/api"
+        strip_components: 1
+
+    - name: Deploy Containers
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.PI_HOST }}
+        username: ${{ secrets.PI_USER }}
+        key: ${{ secrets.PI_SSH_KEY }}
+        port: ${{ secrets.PI_PORT || 22 }}
+        script: |
+          cd /home/pi/api
+          docker-compose down
+          docker-compose up -d
+          docker system prune -f
