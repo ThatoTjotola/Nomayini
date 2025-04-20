@@ -12,11 +12,24 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Setup .NET 9 SDK
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '9.0'
-        installation-path: /home/pi/dotnet
+    - name: Install .NET 9 SDK
+      run: |
+        # Install dependencies
+        sudo apt-get update
+        sudo apt-get install -y wget ca-certificates
+
+        # Create the installation directory for dotnet
+        mkdir -p /home/pi/dotnet
+
+        # Download .NET SDK
+        wget https://download.visualstudio.microsoft.com/download/pr/dc233709-c5e1-4ac3-bd0e-8a5d9115e9fc/3d7f04d6c7c8a87b96a2e6d9d40f49cc/dotnet-sdk-9.0.100-linux-arm64.tar.gz
+
+        # Extract to the custom directory
+        tar -xzvf dotnet-sdk-9.0.100-linux-arm64.tar.gz -C /home/pi/dotnet
+
+        # Add dotnet to PATH
+        echo "export PATH=$PATH:/home/pi/dotnet" >> ~/.bashrc
+        source ~/.bashrc
 
     - name: Publish .NET app
       run: |
@@ -31,3 +44,4 @@ jobs:
         cd /home/pi/api
         docker compose down
         docker compose up -d
+
