@@ -1,6 +1,0 @@
-@Nomayini.Apis_HostAddress = http://localhost:5151
-
-GET {{Nomayini.Apis_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
