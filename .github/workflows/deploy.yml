@@ -12,23 +12,24 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Install .NET 9 SDK
+    - name: Setup .NET 9 SDK
       run: |
         # Install dependencies
         sudo apt-get update
         sudo apt-get install -y wget ca-certificates
 
-        # Create the installation directory for dotnet
-        mkdir -p /home/pi/dotnet
+        # Create the installation directory for dotnet and set correct permissions
+        sudo mkdir -p /home/tjotola/dotnet
+        sudo chown -R tjotola:tjotola /home/tjotola/dotnet
 
-        # Download .NET SDK
+        # Download the .NET SDK
         wget https://download.visualstudio.microsoft.com/download/pr/dc233709-c5e1-4ac3-bd0e-8a5d9115e9fc/3d7f04d6c7c8a87b96a2e6d9d40f49cc/dotnet-sdk-9.0.100-linux-arm64.tar.gz
 
-        # Extract to the custom directory
-        tar -xzvf dotnet-sdk-9.0.100-linux-arm64.tar.gz -C /home/pi/dotnet
+        # Extract .NET SDK to the correct directory
+        tar -xzvf dotnet-sdk-9.0.100-linux-arm64.tar.gz -C /home/tjotola/dotnet
 
-        # Add dotnet to PATH
-        echo "export PATH=$PATH:/home/pi/dotnet" >> ~/.bashrc
+        # Add dotnet to PATH for the current session
+        echo "export PATH=$PATH:/home/tjotola/dotnet" >> ~/.bashrc
         source ~/.bashrc
 
     - name: Publish .NET app
@@ -37,11 +38,10 @@ jobs:
           -c Release \
           -r linux-arm64 \
           --self-contained false \
-          -o /home/pi/api/publish
+          -o /home/tjotola/api/publish
 
     - name: Restart Docker Compose
       run: |
-        cd /home/pi/api
+        cd /home/tjotola/api
         docker compose down
         docker compose up -d
-
