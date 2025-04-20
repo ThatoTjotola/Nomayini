@@ -1,14 +1,17 @@
-// JwtService.cs
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-class JwtService(IConfiguration config) : IJwtService
+namespace Nomayini.Apis.Core.Authentication;
+
+public class JwtService(IConfiguration config) : IJwtService
 {
     public string GenerateToken(User user)
     {
-        var key = Encoding.ASCII.GetBytes(config["JwtSettings:Secret"]);
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.ASCII.GetBytes(config["JwtSettings:Secret"]!);
+
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new[]
@@ -22,6 +25,7 @@ class JwtService(IConfiguration config) : IJwtService
                 SecurityAlgorithms.HmacSha256Signature)
         };
 
-        return new JwtSecurityTokenHandler().CreateToken(tokenDescriptor).ToString();
+        var token = tokenHandler.CreateToken(tokenDescriptor);
+        return tokenHandler.WriteToken(token);
     }
 }

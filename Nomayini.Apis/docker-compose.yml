@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  api:
+    image: mcr.microsoft.com/dotnet/aspnet:9.0-bookworm-slim-arm64v8
+    container_name: nomayini-api
+    restart: unless-stopped
+    ports:
+      - "5000:80"
+    volumes:
+      - ./publish:/app:ro
+      - ./data:/app/data:rw  
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Data Source=/app/data/auth.db
+    working_dir: /app
+    command: ["./Nomayini.Apis"]
+
+  netdata:
+    image: netdata/netdata:latest
+    container_name: netdata
+    restart: unless-stopped
+    ports:
+      - "19999:19999"
+    volumes:
+      - netdata_data:/var/lib/netdata
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+    cap_add:
+      - NET_ADMIN
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+
+volumes:
+  netdata_data:
