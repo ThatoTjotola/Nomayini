@@ -27,7 +27,7 @@ builder.Services.AddOpenApi(options =>
             Title = "Nomayini.Apis",
             Version = "v1",
             Description = """
-                This is my Jimmy Tjotola's On Premise Hosted Vertical slice utlizing MediatR API on my Raspberry Pi for managing authentication and various features.
+                This is my Jimmy Tjotola's On Premise Hosted Vertical slice utlizing MediatR API on my Raspberry Pi for managing authentication and various features i just added messaging.
                 I'm sure you're wondering what's the purpose of this—really, it’s just for testing CI/CD, Docker Compose, and on-prem API usage.
                 Hosting my own projects and managing resources efficently , this fundamently a challenge for myself , how efficient can i write my code 
                 too the point where my little raspberry pi which is sitting beside my desk at the moment doesnt struggle even under load.How too manager containers efficiently
@@ -35,7 +35,6 @@ builder.Services.AddOpenApi(options =>
                 Later features might include a "let me tell you about me" endpoint or similar fun additions. 
                 This API is intended primarily for my personal projects and increasing my ability too write efficient code, also i cant afford microsoft and amazon subscriptions.
                 So its gonna be cloudflare tunnels and my little containers for now, might just mess around and install Kubernettes k3s.
-                Please utlizing Postman or consume api in a different way Scalar is misbehaving
                 """,
             Contact = new()
             {
