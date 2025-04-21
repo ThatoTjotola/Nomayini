@@ -18,7 +18,6 @@ namespace Nomayini.Apis.Feature.Auth.Register
                 Registers a new user account. Successful registration returns:
                 - User ID
                 - Email address
-                - Instructions for login
                 """)
             .Produces(StatusCodes.Status201Created, contentType: "application/json")
             .ProducesProblem(StatusCodes.Status400BadRequest)

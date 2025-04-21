@@ -1,5 +1,6 @@
 
 using System.ComponentModel.DataAnnotations;
+using Nomayini.Apis.Core.Entities;
 
 public class User
 {
@@ -13,5 +14,7 @@ public class User
     [MaxLength(256)]
     public string PasswordHash { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; }
+
+    public ICollection<Message> Messages { get; set; } = new List<Message>();
 
 }

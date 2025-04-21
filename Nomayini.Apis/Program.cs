@@ -6,14 +6,18 @@ using Microsoft.IdentityModel.Tokens;
 using Nomayini.Apis.Core.Authentication;
 using Nomayini.Apis.Feature.Auth.Login;
 using Nomayini.Apis.Feature.Auth.Register;
+using Nomayini.Apis.Feature.Messaging.GetMessage;
+using Nomayini.Apis.Feature.Messaging.PostMessage;
 using Nomayini.Apis.Infrastructure.Middleware;
 using Nomayini.Apis.Shared.Behaviours;
+using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Register built-in authorization and OpenAPI tools
 builder.Services.AddAuthorization();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddOpenApi(options =>
 {
     options.AddDocumentTransformer((document, context, _) =>
@@ -31,7 +35,6 @@ builder.Services.AddOpenApi(options =>
                 Later features might include a "let me tell you about me" endpoint or similar fun additions. 
                 This API is intended primarily for my personal projects and increasing my ability too write efficient code, also i cant afford microsoft and amazon subscriptions.
                 So its gonna be cloudflare tunnels and my little containers for now, might just mess around and install Kubernettes k3s.
-                Rate limited to 1000 requests per hour.
                 Please utlizing Postman or consume api in a different way Scalar is misbehaving
                 """,
             Contact = new()
@@ -41,6 +44,28 @@ builder.Services.AddOpenApi(options =>
                 Url = new Uri("https://www.linkedin.com/in/your-profile")
             }
         };
+
+        document.Components ??= new OpenApiComponents();
+        document.Components.SecuritySchemes.Add("Bearer", new OpenApiSecurityScheme
+        {
+            Type = SecuritySchemeType.Http,
+            Scheme = "bearer",
+            BearerFormat = "JWT",
+            Description = "JWT Authorization header using the Bearer scheme."
+        });
+
+        document.SecurityRequirements.Add(new OpenApiSecurityRequirement
+        {
+            [new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            }] = new List<string>()
+        });
+
         return Task.CompletedTask;
     });
 });
@@ -88,17 +113,15 @@ app.MapScalarApiReference(options =>
         .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
 
 });
-
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 // Map application endpoints
 RegisterEndpoint.MapEndpoint(app);
 LoginEndpoint.MapEndpoint(app);
+PostMessageEndpoint.MapEndpoint(app);
+GetAllMessagesEndpoint.MapEndpoint(app);
 
-// Middleware order is critical for ensuring proper flow
-app.UseMiddleware<ExceptionHandlingMiddleware>();
-
-// Authentication & Authorization must come before endpoint execution
-app.UseAuthentication();
-app.UseAuthorization();
 
 // Database initialization
 using (var scope = app.Services.CreateScope())
