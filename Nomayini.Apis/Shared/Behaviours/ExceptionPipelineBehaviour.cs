@@ -51,7 +51,7 @@ namespace Nomayini.Apis.Shared.Behaviours;
                 _ => new ProblemDetailsException(
                     StatusCodes.Status500InternalServerError,
                     "Internal Server Error",
-                    "An unexpected error occurred")
+                    ex.Message)
             };
         }
     }

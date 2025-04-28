@@ -19,4 +19,9 @@
     <PackageReference Include="Scalar.AspNetCore" Version="2.1.17" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Feature\UploadImage\GetImage\" />
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 </Project>
