@@ -14,6 +14,7 @@ public class PostMessageEndpoint
             await mediator.Send(new PostMessageCommand(command.Content, userId));
 
         }).RequireAuthorization()
+        .DisableAntiforgery()
         .WithSummary("Post a message too all the other users")
             .WithDescription("This just posts a message(post) too users youll need too be authenticated in first")
             .Produces(StatusCodes.Status201Created)
