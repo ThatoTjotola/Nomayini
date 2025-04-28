@@ -12,6 +12,8 @@ using Nomayini.Apis.Infrastructure.Middleware;
 using Nomayini.Apis.Shared.Behaviours;
 using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
+using Nomayini.Apis.Feature.UploadImage.PostImage;
+using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 
