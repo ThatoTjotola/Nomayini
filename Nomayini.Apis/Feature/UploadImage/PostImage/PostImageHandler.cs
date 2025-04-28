@@ -3,14 +3,14 @@ using MediatR;
 
 namespace Nomayini.Apis.Feature.UploadImage.PostImage;
 
-public sealed class PostImageCommandHandler(AppDbContext dbContext, IHttpContextAccessor context, IWebHostEnvironment env)
+public sealed class PostImageCommandHandler(IHttpContextAccessor context, IWebHostEnvironment env)
     : IRequestHandler<PostImageCommand, Unit>
 {
     public async Task<Unit> Handle(PostImageCommand command, CancellationToken cancellationToken)
     {
         var userId = context.HttpContext?.User?.Claims
             .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-        string currentTime = DateTime.Now.ToString("HH:mm:ss tt");
+        string currentTime = DateTime.Now.ToString("yyyyMMdd_HHmmss");
 
         string path = Path.Combine(env.WebRootPath, "images");
 
@@ -20,7 +20,7 @@ public sealed class PostImageCommandHandler(AppDbContext dbContext, IHttpContext
         }
 
         var extension = Path.GetExtension(command.image.FileName);
-        var filePath = Path.Combine(path, $"{userId}{extension}");
+        var filePath = Path.Combine(path, $"{userId + currentTime}{extension}");
 
         using (var stream = new FileStream(filePath, FileMode.Create))
         {

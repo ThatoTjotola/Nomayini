@@ -9,6 +9,7 @@ using Nomayini.Apis.Feature.Auth.Login;
 using Nomayini.Apis.Feature.Auth.Register;
 using Nomayini.Apis.Feature.Messaging.GetMessage;
 using Nomayini.Apis.Feature.Messaging.PostMessage;
+using Nomayini.Apis.Feature.UploadImage.GetImage;
 using Nomayini.Apis.Feature.UploadImage.PostImage;
 using Nomayini.Apis.Infrastructure.Middleware;
 using Nomayini.Apis.Shared.Behaviours;
@@ -47,10 +48,10 @@ builder.Services.AddOpenApi(options =>
             }
         };
 
-        document.Servers = new List<OpenApiServer>
-        {
-            new OpenApiServer { Url = "https://jimmytjotola.org" }
-        };
+        //document.Servers = new List<OpenApiServer>
+        //{
+        //    new OpenApiServer { Url = "https://jimmytjotola.org" }
+        //};
 
         document.Components ??= new OpenApiComponents();
         document.Components.SecuritySchemes.Add("Bearer", new OpenApiSecurityScheme
@@ -131,7 +132,7 @@ LoginEndpoint.MapEndpoint(app);
 PostMessageEndpoint.MapEndpoint(app);
 GetAllMessagesEndpoint.MapEndpoint(app);
 PostImageEndpoint.MapEndpoint(app);
-
+GetImageEndpoint.MapEndpoint(app);
 // Database initialization
 using (var scope = app.Services.CreateScope())
 {
