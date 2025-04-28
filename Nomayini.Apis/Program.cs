@@ -13,12 +13,10 @@ using Nomayini.Apis.Feature.UploadImage.PostImage;
 using Nomayini.Apis.Infrastructure.Middleware;
 using Nomayini.Apis.Shared.Behaviours;
 using Scalar.AspNetCore;
-using Nomayini.Apis.Feature.UploadImage.PostImage;
-using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Register built-in authorization and OpenAPI tools
+
 builder.Services.AddAuthorization();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddAntiforgery();
