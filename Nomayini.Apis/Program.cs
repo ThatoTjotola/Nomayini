@@ -3,17 +3,16 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Nomayini.Apis.Core.Authentication;
 using Nomayini.Apis.Feature.Auth.Login;
 using Nomayini.Apis.Feature.Auth.Register;
 using Nomayini.Apis.Feature.Messaging.GetMessage;
 using Nomayini.Apis.Feature.Messaging.PostMessage;
+using Nomayini.Apis.Feature.UploadImage.PostImage;
 using Nomayini.Apis.Infrastructure.Middleware;
 using Nomayini.Apis.Shared.Behaviours;
-using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
-using Nomayini.Apis.Feature.UploadImage.PostImage;
-using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 
