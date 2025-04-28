@@ -3,14 +3,15 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Nomayini.Apis.Core.Authentication;
 using Nomayini.Apis.Feature.Auth.Login;
 using Nomayini.Apis.Feature.Auth.Register;
 using Nomayini.Apis.Feature.Messaging.GetMessage;
 using Nomayini.Apis.Feature.Messaging.PostMessage;
+using Nomayini.Apis.Feature.UploadImage.PostImage;
 using Nomayini.Apis.Infrastructure.Middleware;
 using Nomayini.Apis.Shared.Behaviours;
-using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Register built-in authorization and OpenAPI tools
 builder.Services.AddAuthorization();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddAntiforgery();
 builder.Services.AddOpenApi(options =>
 {
     options.AddDocumentTransformer((document, context, _) =>
@@ -45,10 +47,10 @@ builder.Services.AddOpenApi(options =>
             }
         };
 
-        document.Servers = new List<OpenApiServer>
-        {
-            new OpenApiServer { Url = "https://jimmytjotola.org" }
-        };
+        //document.Servers = new List<OpenApiServer>
+        //{
+        //    new OpenApiServer { Url = "https://jimmytjotola.org" }
+        //};
 
         document.Components ??= new OpenApiComponents();
         document.Components.SecuritySchemes.Add("Bearer", new OpenApiSecurityScheme
@@ -108,7 +110,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
-// Map OpenAPI endpoint);
+// Map OpenAPI endpoint);'
+app.UseRouting();
+app.UseAntiforgery();
 app.MapOpenApi();
 app.MapScalarApiReference(options =>
 {
@@ -126,7 +130,7 @@ RegisterEndpoint.MapEndpoint(app);
 LoginEndpoint.MapEndpoint(app);
 PostMessageEndpoint.MapEndpoint(app);
 GetAllMessagesEndpoint.MapEndpoint(app);
-
+PostImageEndpoint.MapEndpoint(app);
 
 // Database initialization
 using (var scope = app.Services.CreateScope())
