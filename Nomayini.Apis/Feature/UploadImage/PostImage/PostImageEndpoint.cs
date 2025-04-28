@@ -13,6 +13,7 @@ public class PostImageEndpoint
         })
          .DisableAntiforgery()
          .RequireAuthorization()
+         .Accepts<PostImageCommand>("multipart/form-data")
         .WithName("UploadImage")
         .WithSummary("User Uploads an Image")
         .WithOpenApi();
