@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="Feature\UploadImage\GetImage\" />
-    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>
