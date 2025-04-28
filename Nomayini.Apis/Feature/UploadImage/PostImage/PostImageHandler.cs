@@ -3,19 +3,18 @@ using MediatR;
 
 namespace Nomayini.Apis.Feature.UploadImage.PostImage;
 
-public sealed class PostImageCommandHandler(AppDbContext dbContext, IHttpContextAccessor context) : IRequestHandler<PostImageCommand, Unit>
+public sealed class PostImageCommandHandler(AppDbContext dbContext, IHttpContextAccessor context, IWebHostEnvironment env)
+    : IRequestHandler<PostImageCommand, Unit>
 {
-    public async Task<Unit> Handle(
-           PostImageCommand command,
-           CancellationToken cancellationToken)
+    public async Task<Unit> Handle(PostImageCommand command, CancellationToken cancellationToken)
     {
-        var userId = context.HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value.ToString();
-        string currenTime= DateTime.Now.ToString("HH:mm:ss tt");
+        var userId = context.HttpContext?.User?.Claims
+            .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        string currentTime = DateTime.Now.ToString("HH:mm:ss tt");
 
-        string path = "wwwroot/images";
+        string path = Path.Combine(env.WebRootPath, "images");
 
-        bool exists = Directory.Exists(path);
-        if (!exists)
+        if (!Directory.Exists(path))
         {
             Directory.CreateDirectory(path);
         }
@@ -25,11 +24,9 @@ public sealed class PostImageCommandHandler(AppDbContext dbContext, IHttpContext
 
         using (var stream = new FileStream(filePath, FileMode.Create))
         {
-            await command.image.CopyToAsync(stream);
+            await command.image.CopyToAsync(stream, cancellationToken);
         }
 
         return Unit.Value;
-
     }
 }
-
