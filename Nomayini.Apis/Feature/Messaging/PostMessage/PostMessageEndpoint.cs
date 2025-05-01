@@ -8,10 +8,9 @@ public class PostMessageEndpoint
 
     public static void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("/postmessage", async (IMediator mediator, [FromBody] PostMessageCommand command, IHttpContextAccessor context) =>
+        app.MapPost("/postmessage", async (IMediator mediator, [FromBody] PostMessageCommand command) =>
         {
-            var userId = Guid.Parse(context.HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
-            await mediator.Send(new PostMessageCommand(command.Content, userId));
+            await mediator.Send(command);
 
         }).RequireAuthorization()
         .DisableAntiforgery()
