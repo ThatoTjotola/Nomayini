@@ -3,6 +3,7 @@ using MediatR;
 
 namespace Nomayini.Apis.Feature.UploadImage.PostImage;
 
+//we wannna change this later too upload media whether its video or image , and also retrieve with efficiency.
 public sealed class PostImageCommandHandler(IHttpContextAccessor context, IWebHostEnvironment env)
     : IRequestHandler<PostImageCommand, Unit>
 {

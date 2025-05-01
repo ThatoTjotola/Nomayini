@@ -108,6 +108,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ClockSkew = TimeSpan.Zero  // Remove default clock skew for strict expiration validation
         };
     });
+//configure opentelemetry here for monitoring and logging
 
 var app = builder.Build();
 
@@ -119,7 +120,7 @@ app.MapScalarApiReference(options =>
 {
     options
         .WithTitle("JimmyJams APIs")
-        .WithTheme(ScalarTheme.Mars)
+        .WithTheme(ScalarTheme.Kepler)
         .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
 
 });
