@@ -2,4 +2,4 @@
 
 namespace Nomayini.Apis.Feature.UploadImage.PostImage;
 
-public sealed record PostImageCommand(IFormFile image): IRequest<Unit>;
+public sealed record PostImageCommand(IFormFile image): IRequest<string>;

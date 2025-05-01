@@ -5,12 +5,11 @@ namespace Nomayini.Apis.Feature.UploadImage.PostImage;
 
 //we wannna change this later too upload media whether its video or image , and also retrieve with efficiency.
 public sealed class PostImageCommandHandler(IHttpContextAccessor context, IWebHostEnvironment env)
-    : IRequestHandler<PostImageCommand, Unit>
+    : IRequestHandler<PostImageCommand, string>
 {
-    public async Task<Unit> Handle(PostImageCommand command, CancellationToken cancellationToken)
+    public async Task<string> Handle(PostImageCommand command, CancellationToken cancellationToken)
     {
-        var userId = context.HttpContext?.User?.Claims
-            .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        var userId = context.HttpContext?.User?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
         string currentTime = DateTime.Now.ToString("yyyyMMdd_HHmmss");
 
         string path = Path.Combine(env.WebRootPath, "images");
@@ -28,6 +27,6 @@ public sealed class PostImageCommandHandler(IHttpContextAccessor context, IWebHo
             await command.image.CopyToAsync(stream, cancellationToken);
         }
 
-        return Unit.Value;
+        return "Media stored successfully";
     }
 }

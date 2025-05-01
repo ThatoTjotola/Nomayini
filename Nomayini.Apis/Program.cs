@@ -111,9 +111,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 //configure opentelemetry here for monitoring and logging move away from NETDATA
 
 var app = builder.Build();
-
-// Map OpenAPI endpoint);'
+app.UseStaticFiles();
+// Map OpenAPI endpoint);
 app.UseRouting();
+
 app.UseAntiforgery();
 app.MapOpenApi();
 app.MapScalarApiReference(options =>

@@ -12,12 +12,10 @@ namespace Nomayini.Apis.Feature.Auth.Register
                 var result = await mediator.Send(command);
                 return Results.Created();
             }).AllowAnonymous()
-            .WithName("RegisterUser")
+            .WithName("Register a user")
             .WithSummary("Registers a new user")
             .WithDescription("""
-                Registers a new user account. Successful registration returns:
-                - User ID
-                - Email address
+                Registers a new user account.After success go and login with the provided credentials here to get your jwt token for authentication:
                 """)
             .Produces(StatusCodes.Status201Created, contentType: "application/json")
             .ProducesProblem(StatusCodes.Status400BadRequest)
