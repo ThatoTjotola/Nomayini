@@ -18,6 +18,8 @@ public class PostImageEndpoint
         .WithSummary("Upload an Image")
          .WithDescription("Authenticated user can upload image or media to store on my raspberry pi storage ,Lol why pay for cloud storage when " +
          "you have this.")
+        .Produces(StatusCodes.Status400BadRequest)
+       .Produces(StatusCodes.Status401Unauthorized)
         .WithOpenApi();
     }
 }

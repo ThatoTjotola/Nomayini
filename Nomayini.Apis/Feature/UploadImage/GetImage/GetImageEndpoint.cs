@@ -13,7 +13,7 @@ public class GetImageEndpoint
             return Results.Ok(result);
         }).RequireAuthorization()
         .WithName("GetUserImages")
-        .WithSummary("Get Users images")
+        .WithSummary("WIP please ignore ")
          .WithOpenApi();
     }
 }
