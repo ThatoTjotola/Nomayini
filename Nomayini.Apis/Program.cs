@@ -2,7 +2,6 @@ using System.Text;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Nomayini.Apis.Core.Authentication;
@@ -112,13 +111,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 //configure opentelemetry here for monitoring and logging move away from NETDATA
 
 var app = builder.Build();
-var externalWebRoot = Path.Combine(Directory.GetCurrentDirectory(), "../wwwroot");
-
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = new PhysicalFileProvider(externalWebRoot),
-    RequestPath = "" 
-});
+app.UseStaticFiles();
+// Map OpenAPI endpoint);
 app.UseRouting();
 
 app.UseAntiforgery();
