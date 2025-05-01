@@ -6,6 +6,7 @@ public class User
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
+    //possibly remove this use fluentvalidation
     [Required]
     [MaxLength(254)]
     public string Email { get; set; } = string.Empty;

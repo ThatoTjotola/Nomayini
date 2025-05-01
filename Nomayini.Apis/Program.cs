@@ -48,10 +48,10 @@ builder.Services.AddOpenApi(options =>
             }
         };
 
-        //document.Servers = new List<OpenApiServer>
-        //{
-        //    new OpenApiServer { Url = "https://jimmytjotola.org" }
-        //};
+        document.Servers = new List<OpenApiServer>
+        {
+            new OpenApiServer { Url = "https://jimmytjotola.org" }
+        };
 
         document.Components ??= new OpenApiComponents();
         document.Components.SecuritySchemes.Add("Bearer", new OpenApiSecurityScheme
@@ -108,7 +108,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ClockSkew = TimeSpan.Zero  // Remove default clock skew for strict expiration validation
         };
     });
-//configure opentelemetry here for monitoring and logging
+//configure opentelemetry here for monitoring and logging move away from NETDATA
 
 var app = builder.Build();
 
