@@ -2,5 +2,5 @@
 
 namespace Nomayini.Apis.Feature.Messaging.PostMessage
 {
-    public sealed record PostMessageCommand(string Content) : IRequest<Unit>;
+    public sealed record PostMessageCommand(string Content) : IRequest<string>;
 }

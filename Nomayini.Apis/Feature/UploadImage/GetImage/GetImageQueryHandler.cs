@@ -18,10 +18,10 @@ public sealed class GetImageQueryHandler(IHttpContextAccessor context, IWebHostE
 
         }
 
-        //WIP CAN BE IMPROVED
+        //WIP CAN BE NOT YET DONE
 
-        var userImageFiles = Directory.GetFiles(imagePath)
-            .Select(Path.GetFileName)
+       var userImageFiles = Directory.GetFiles(imagePath)
+          .Select(Path.GetFileName)
             .Where(fileName => fileName.StartsWith($"{userId}_", StringComparison.OrdinalIgnoreCase))
             .ToArray();
         return JsonSerializer.Serialize(userImageFiles);
