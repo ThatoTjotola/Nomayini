@@ -120,7 +120,7 @@ app.MapScalarApiReference(options =>
 {
     options
         .WithTitle("JimmyJams APIs")
-        .WithTheme(ScalarTheme.Mars)
+        .WithTheme(ScalarTheme.Kepler)
         .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
 });
 app.UseAuthentication();
