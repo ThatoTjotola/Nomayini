@@ -1,5 +1,4 @@
-version: "3.9"
-
+﻿# docker-compose.yml
 services:
   api:
     image: mcr.microsoft.com/dotnet/aspnet:9.0-bookworm-slim-arm64v8
@@ -8,8 +7,9 @@ services:
     ports:
       - "5000:80"
     volumes:
-      - ./publish:/app:ro
-      - ./data:/app/data:rw  
+      - ./publish:/app:rw
+      - ./data:/app/data:rw
+      - ./wwwroot:/app/wwwroot:rw
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:80
@@ -17,23 +17,17 @@ services:
     working_dir: /app
     command: ["dotnet", "Nomayini.Apis.dll"]
 
-  netdata:
-    image: netdata/netdata:latest
-    container_name: netdata
+  gemma:
+    image: ollama/ollama:latest
+    container_name: gemma
     restart: unless-stopped
     ports:
-      - "19999:19999"
+      - "12432:11434"              # map host 12432 → container 11434
     volumes:
-      - netdata_data:/var/lib/netdata
-      - /etc/passwd:/host/etc/passwd:ro
-      - /etc/group:/host/etc/group:ro
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-    cap_add:
-      - NET_ADMIN
-      - SYS_PTRACE
-    security_opt:
-      - apparmor:unconfined
+      - ollama_data:/root/.ollama  # persist downloaded models
+    command: >
+      sh -c "ollama pull gemma3n:e2b &&
+             ollama serve gemma3n:e2b --port 11434"
 
 volumes:
-  netdata_data:
+  ollama_data:                   # declared once for model storage
