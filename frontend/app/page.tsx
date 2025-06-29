@@ -7,7 +7,8 @@ export default function Home() {
   const [reply, setReply]       = useState<string | null>(null)
   const [loading, setLoading]   = useState(false)
   const [error, setError]       = useState<string | null>(null)
- async function askJimmy(e: FormEvent) {
+
+  async function askJimmy(e: FormEvent) {
     e.preventDefault()
     if (!prompt.trim()) return
 
@@ -40,6 +41,7 @@ export default function Home() {
       // const text = data.choices?.[0]?.text?.trim()
       const text = data.choices?.[0]?.text?.trim() ?? "No reply"
       setReply(text)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message || "Something went wrong")
     } finally {
