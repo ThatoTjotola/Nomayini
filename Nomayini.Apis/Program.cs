@@ -119,7 +119,7 @@ app.MapOpenApi();
 app.MapScalarApiReference(options =>
 {
     options
-        .WithTitle("JimmyJams APIs")
+        .WithTitle("JimmyJams API")
         .WithTheme(ScalarTheme.Mars)
         .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
 });
