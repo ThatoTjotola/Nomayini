@@ -44,10 +44,10 @@ export default function Home() {
       {/* Row 2: form + reply */}
       <div className="row-start-2 flex flex-col gap-8 w-full max-w-md">
         <h1 className="text-2xl font-semibold tracking-tight mb-4">
-          Welcome to my personal site.
+          Welcome to my personal site. 
         </h1>
         <p className="text-sm/6 font-mono mb-6 text-center sm:text-left">
-          Ask my locally hosted chatbot about me or explore my site
+          Hi Xongotelo how are you !!! ,Ask my locally hosted chatbot about me or explore my site
         </p>
 
         <form onSubmit={askJimmy} className="space-y-4">
