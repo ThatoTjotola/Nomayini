@@ -34,4 +34,5 @@ jobs:
       run: |
         cd /home/pi/api
         docker compose down
-        docker compose up -d
+        docker compose up -d --build
+
