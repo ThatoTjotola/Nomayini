@@ -1,5 +1,6 @@
 # Nomayini Api (My self hosted everything everything)
 https://jimmytjotola.org/scalar/
+https://fe.jimmytjotola.org/  FE
 
 My little baby running everying on premise
 ![1000064069](https://github.com/user-attachments/assets/a46aa615-315a-4305-bcc1-229635531d6c)
@@ -14,5 +15,4 @@ CD pipeline using github runner too deploy to my raspberry pi
  Small system overview diagram for selfhosted pi 
 ![diagram-export-2025-04-21-19_22_02](https://github.com/user-attachments/assets/f9d386c0-17bc-4b05-8010-afe7ed7a76ca)
 
-Nomayini .netMau app
-Wip
+NEXT.JS app 
