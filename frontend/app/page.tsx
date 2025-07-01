@@ -24,7 +24,7 @@ export default function Home() {
         body: JSON.stringify({
           model: "gemma3n:e2b",
           prompt,
-          max_tokens: 30,
+          max_tokens: 150,
         }),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -42,19 +42,19 @@ export default function Home() {
   return (
     <main className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center p-8 pb-20 gap-16 sm:p-20">
       {/* Row 2: form + reply */}
-      <div className="row-start-2 flex flex-col gap-8 w-full max-w-md">
-        <h1 className="text-2xl font-semibold tracking-tight mb-4">
+      <div className="row-start-3 flex flex-col gap-6 w-full max-w-md">
+        <h1 className="text-5xl font-bold tracking-tight mb-5">
           Welcome to my personal site. 
         </h1>
         <p className="text-sm/6 font-mono mb-6 text-center sm:text-left">
-          Hi Xongotelo how are you !!! ,Ask my locally hosted chatbot about me or explore my site
+          Ask my locally hosted chatbot about me or explore my site
         </p>
 
         <form onSubmit={askJimmy} className="space-y-4">
           <input
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            placeholder="Type your prompt here..."
+            placeholder="Type your question here about me..."
             className="w-full px-4 py-2 text-sm text-gray-700 bg-white border rounded-md shadow-sm placeholder-gray-400
                        focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-colors"
           />
@@ -62,14 +62,14 @@ export default function Home() {
             type="submit"
             disabled={loading || !prompt.trim()}
             className="w-full flex items-center justify-center gap-2 py-2 bg-blue-600 text-white rounded-full
-                       disabled:bg-red-600 hover:bg-red-700 transition-colors"
+                       disabled:bg-red-600 hover:bg-blue-700 transition-colors"
           >
             {loading ? (
               "Asking…"
             ) : (
               <>
                 <Image
-                  className="dark:invert"
+                  className="light:invert"
                   src="/vercel.svg"
                   alt="✨"
                   width={20}
@@ -84,7 +84,7 @@ export default function Home() {
         {error && <p className="text-red-500 text-sm mt-2">Error: {error}</p>}
 
         {reply && (
-          <div className="mt-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-md">
+          <div className="mt-6 p-4 bg-white-100 dark:bg-transparent-800 rounded-md">
             <h2 className="font-medium mb-2">Jimmy says:</h2>
             <p className="whitespace-pre-wrap">{reply}</p>
           </div>

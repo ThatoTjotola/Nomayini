@@ -4,13 +4,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Bars3Icon,
-  XMarkIcon,
-  HomeIcon,
-  InformationCircleIcon,
-  PencilSquareIcon,
-} from "@heroicons/react/24/outline";
+import {Bars3Icon,HomeIcon,InformationCircleIcon,PencilSquareIcon,} from "@heroicons/react/24/outline";
 
 const navItems = [
   { href: "/",      label: "Home",  icon: <HomeIcon className="h-6 w-6" /> },
@@ -27,7 +21,7 @@ export default function Sidebar() {
       className={`
         flex-shrink-0       
         transition-all duration-200
-          bg-blue-50 dark:bg-stone-900 border-r dark:border-gray-700
+          bg-blue-50 dark:bg-gray-100 border-r dark:border-gray-700
 
         /* toggle width */
         ${collapsed ? "w-16" : "w-64"}
@@ -38,9 +32,10 @@ export default function Sidebar() {
         {!collapsed && <span className="text-xl font-bold">Jimmys Portfolio</span>}
         <button
           onClick={() => setCollapsed((c) => !c)}
-          className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700"
+          className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-900"
         >
-          {collapsed ? <Bars3Icon className="h-6 w-6" /> : <XMarkIcon className="h-6 w-6" />}
+          
+          {collapsed ? <Bars3Icon className="h-6 w-6" /> : < Bars3Icon className="h-6 w-6" />}
         </button>
       </div>
 
