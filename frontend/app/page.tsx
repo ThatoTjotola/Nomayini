@@ -24,7 +24,7 @@ export default function Home() {
         body: JSON.stringify({
           model: "gemma3n:e2b",
           prompt,
-          max_tokens: 150,
+          max_tokens: 25,
         }),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
