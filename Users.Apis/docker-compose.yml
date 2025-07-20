@@ -20,7 +20,7 @@ services:
 
   gemma:
     image: ollama/ollama:latest
-    container_name: gemma
+    container_name: gemma2
     restart: unless-stopped
     ports:
       - "11434:11434"
