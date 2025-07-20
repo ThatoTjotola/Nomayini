@@ -29,16 +29,7 @@ builder.Services.AddOpenApi(options =>
         {
             Title = "User.Api",
             Version = "v1",
-            Description = """
-                This is my Jimmy Tjotola's On Premise Hosted Vertical slice utlizing MediatR API on my Raspberry Pi for managing authentication and various features i just added messaging.
-                I'm sure you're wondering what's the purpose of this—really, it’s just for testing CI/CD, Docker Compose, and on-prem API usage.
-                Hosting my own projects and managing resources efficently,if you wanna see go to read me note still WIP : wanna take a peak : https://github.com/ThatoTjotola/Nomayini , this fundamently a challenge for myself , how efficient can i write my code 
-                too the point where my little raspberry pi which is sitting beside my desk at the moment doesnt struggle even under load.How too manager containers efficiently
-                on it after deploying from github using github actions and it as a github runner , later too be managed by my docker compose which is running netdata too make sure everything is still cool.
-                Later features might include a "let me tell you about me" endpoint or similar fun additions. 
-                This API is intended primarily for my personal projects and increasing my ability too write efficient code, also i cant afford microsoft and amazon subscriptions.
-                So its gonna be cloudflare tunnels and my little containers for now, might just mess around and install Kubernettes k3s.
-                """,
+            Description = "User microservice",
             Contact = new()
             {
                 Name = "API support – contact me if you need help",
