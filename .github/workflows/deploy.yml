@@ -24,7 +24,7 @@ jobs:
         export DOTNET_ROOT=$HOME/dotnet
         export PATH=$HOME/dotnet:$PATH
 
-        dotnet publish ./Users.Apis/User.Apis.csproj \
+        dotnet publish ./Users.Apis/User.Api.csproj \
           -c Release \
           -r linux-arm64 \
           --self-contained false \
