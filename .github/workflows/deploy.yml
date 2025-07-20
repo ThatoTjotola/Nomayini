@@ -24,7 +24,7 @@ jobs:
         export DOTNET_ROOT=$HOME/dotnet
         export PATH=$HOME/dotnet:$PATH
 
-        dotnet publish ./Nomayini.Apis/Nomayini.Apis.csproj \
+        dotnet publish ./Users.Apis/User.Apis.csproj \
           -c Release \
           -r linux-arm64 \
           --self-contained false \
@@ -32,7 +32,6 @@ jobs:
 
     - name: Restart Docker Compose
       run: |
-        cd /home/pi/api
         docker compose down
         docker compose up -d --build
 

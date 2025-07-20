@@ -1,0 +1,50 @@
+﻿version: "3.8"
+
+services:
+  api:
+    image: mcr.microsoft.com/dotnet/aspnet:9.0-bookworm-slim-arm64v8
+    container_name: user-api
+    restart: unless-stopped
+    ports:
+      - "5000:80"
+    volumes:
+      - ./publish:/app:rw
+      - ./data:/app/data:rw
+      - ./wwwroot:/app/wwwroot:rw
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Data Source=/app/data/auth.db
+    working_dir: /app
+    command: ["dotnet", "User.Api.dll"]
+
+  gemma:
+    image: ollama/ollama:latest
+    container_name: gemma
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_ORIGINS=*
+    command:
+      - serve
+
+  web:
+    build:
+       context: /home/pi/api/actions-runner/_work/Nomayini/Nomayini/frontend
+       dockerfile: /home/pi/api/actions-runner/_work/Nomayini/Nomayini/frontend/Dockerfile
+    container_name: user-web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_BASE=http://api:80/v1
+    depends_on:
+      - api
+
+volumes:
+  ollama_data:
+    external: true
