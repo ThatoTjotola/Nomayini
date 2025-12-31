@@ -1,7 +1,6 @@
 ﻿using System.Security.Claims;
 using MediatR;
 using Users.Apis.Core.Entities;
-using Users.Apis.Shared.Exceptions;
 
 namespace Users.Apis.Feature.Messaging.PostMessage
 {

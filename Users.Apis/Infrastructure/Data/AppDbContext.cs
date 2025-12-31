@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Users.Apis.Core.Entities;
 
-public class AppDbContext : DbContext ,IAppDbContext
+public class AppDbContext : DbContext, IAppDbContext
 {
     public DbSet<User> Users => Set<User>();
     public DbSet<Message> Messages => Set<Message>();
@@ -29,14 +29,12 @@ public class AppDbContext : DbContext ,IAppDbContext
     }
 }
 
-public interface IAppDbContext {
-
+public interface IAppDbContext
+{
     DbSet<User> Users { get; }
     DbSet<Message> Messages { get; }
 
     DbSet<TEntity> Set<TEntity>() where TEntity : class;
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     int SaveChanges();
-
-
 }
