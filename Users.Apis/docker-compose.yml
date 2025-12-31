@@ -31,19 +31,28 @@ services:
     command:
       - serve
 
-  web:
-    build:
-       context: /home/pi/api/actions-runner/_work/Nomayini/Nomayini/frontend
-       dockerfile: /home/pi/api/actions-runner/_work/Nomayini/Nomayini/frontend/Dockerfile
-    container_name: user-web
-    restart: unless-stopped
+  registry:
+    image: registry:2
+    container_name: docker-registry
+    restart: always
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=production
-      - NEXT_PUBLIC_API_BASE=http://api:80/v1
+      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /var/lib/registry
+    volumes:
+      - ./data:/var/lib/registry
+
+  frontend:
+    image: joxit/docker-registry-ui:latest
+    container_name: registry-ui
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      - REGISTRY_URL=https://fe.jimmytjotola.org
+      - SINGLE_REGISTRY=true
     depends_on:
-      - api
+      - registry
 
 volumes:
   ollama_data:
