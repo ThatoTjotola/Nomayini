@@ -33,7 +33,7 @@ services:
 
   registry:
     image: registry:2
-    container_name: mydocker-registry
+    container_name: ourdocker-registry
     restart: always
     ports:
       - "3000:3000"
@@ -44,7 +44,7 @@ services:
 
   frontend:
     image: joxit/docker-registry-ui:latest
-    container_name: registry-ui
+    container_name: ourregistry-ui
     restart: always
     ports:
       - "8080:80"
