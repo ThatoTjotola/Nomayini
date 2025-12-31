@@ -33,7 +33,7 @@ services:
 
   registry:
     image: registry:2
-    container_name: docker-registry
+    container_name: mydocker-registry
     restart: always
     ports:
       - "3000:3000"
