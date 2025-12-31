@@ -14,7 +14,7 @@ jobs:
 
     # Adding the permission command here
     - name: Set full permissions
-      run: sudo chmod -R 777 .
+      run: sudo chmod -R 777 /home/pi/api/actions-runner/_work/Nomayini/Nomayini/Users.Apis/publish/data .
 
     - name: Use local .NET 9 SDK
       run: |
