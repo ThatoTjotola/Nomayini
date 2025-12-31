@@ -3,26 +3,26 @@ using Users.Apis.Core.Authentication;
 using Users.Apis.Feature.Auth.Register;
 
 namespace Users.Apis.Feature.Auth;
-
-public sealed class RegisterCommandHandler(
-        IAppDbContext _context,
-        IPasswordHasher _passwordHasher,
-        IJwtService _jwtService) : IRequestHandler<RegisterCommand, AuthResponse>
+/// <summary>
+/// Registration component 
+/// </summary>
+/// <param name="context"></param>
+/// <param name="passwordHasher"></param>
+/// <param name="jwtService"></param>
+public sealed class RegisterCommandHandler( IAppDbContext context,IPasswordHasher passwordHasher, IJwtService jwtService) : IRequestHandler<RegisterCommand, AuthResponse>
 {
 
-    public async Task<AuthResponse> Handle(
-        RegisterCommand request,
-        CancellationToken cancellationToken)
+    public async Task<AuthResponse> Handle(RegisterCommand request,CancellationToken cancellationToken)
     {
         var user = new User
         {
             Email = request.Email,
-            PasswordHash = _passwordHasher.HashPassword(request.Password)
+            PasswordHash = passwordHasher.HashPassword(request.Password)
         };
 
-        _context.Users.Add(user);
-        await _context.SaveChangesAsync(cancellationToken);
+        context.Users.Add(user);
+        await context.SaveChangesAsync(cancellationToken);
 
-        return new AuthResponse(_jwtService.GenerateToken(user));
+        return new AuthResponse(jwtService.GenerateToken(user));
     }
 }

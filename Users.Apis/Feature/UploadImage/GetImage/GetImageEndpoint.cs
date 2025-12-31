@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Users.Apis.Feature.UploadImage.GetImage;
+
 public class GetImageEndpoint
 {
     public static void MapEndpoint(IEndpointRouteBuilder app)

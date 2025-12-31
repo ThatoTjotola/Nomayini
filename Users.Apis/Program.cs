@@ -111,7 +111,7 @@ app.MapScalarApiReference(options =>
 {
     options
         .WithTitle("Users Api")
-        .WithTheme(ScalarTheme.Mars)
+        .WithTheme(ScalarTheme.Solarized)
         .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
 });
 app.UseAuthentication();
