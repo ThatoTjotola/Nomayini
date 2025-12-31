@@ -31,9 +31,8 @@ jobs:
           -o /home/pi/api/publish
 
     - name: Restart Docker Compose
-      run: |2
-        cd /home/pi/api
+      run: |
+        cd /home/pi/api/actions-runner/_work/Nomayini/Nomayini/Users.Apis
         docker compose down
         docker compose up -d --build
 
-        dock36
