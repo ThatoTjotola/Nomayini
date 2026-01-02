@@ -7,8 +7,7 @@ namespace Portfolio.Api.Feature.Messaging.GetMessage;
 /// Logic to return all messages accordingly added no tracking for performance boost
 /// </summary>
 /// <param name="db"></param>
-public sealed class GetAllMessagesQueryHandler(IAppDbContext db)
-: IRequestHandler<GetAllMessagesQuery, List<GetAllMessagesResponse>>
+public sealed class GetAllMessagesQueryHandler(IAppDbContext db): IRequestHandler<GetAllMessagesQuery, List<GetAllMessagesResponse>>
 {
     public async Task<List<GetAllMessagesResponse>> Handle(
         GetAllMessagesQuery query,

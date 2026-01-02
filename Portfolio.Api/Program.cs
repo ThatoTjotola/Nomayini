@@ -109,7 +109,7 @@ app.MapOpenApi();
 app.MapScalarApiReference(options =>
 {
     options
-        .WithTitle("Users Api")
+        .WithTitle("Portfolio Api")
         .WithTheme(ScalarTheme.Solarized)
         .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
 });
