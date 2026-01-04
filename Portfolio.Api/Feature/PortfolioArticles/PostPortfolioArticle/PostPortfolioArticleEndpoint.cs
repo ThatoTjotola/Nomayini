@@ -13,7 +13,8 @@ namespace Portfolio.Api.Feature.PortfolioArticles.PostPortfolioArticle
             app.MapPost("postarticle", async (IMediator mediator, [FromBody] PostPortfolioArticleCommand command) =>
             {
                 await mediator.Send(command);
-            });
+            }).WithDisplayName("Add a article")
+            .WithSummary("Adds a article to portfolio");
         }
     }
 }
