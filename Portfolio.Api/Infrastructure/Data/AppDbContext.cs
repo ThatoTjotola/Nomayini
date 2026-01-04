@@ -8,7 +8,7 @@ public class AppDbContext : DbContext, IAppDbContext
     /// </summary>
     public DbSet<PortfolioUser> Users => Set<PortfolioUser>();
     public DbSet<Message> Messages => Set<Message>();
-    public DbSet<PortfolioArticles> PortfolioArticles => Set<PortfolioArticles>();
+    public DbSet<PortfolioArticle> PortfolioArticles => Set<PortfolioArticle>();
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -30,7 +30,7 @@ public class AppDbContext : DbContext, IAppDbContext
                   .WithMany(u => u.Messages)
                   .HasForeignKey(m => m.UserId);
         });
-        modelBuilder.Entity<PortfolioArticles>(entity =>
+        modelBuilder.Entity<PortfolioArticle>(entity =>
         {
             entity.HasIndex(p => p.Id).IsUnique();
 
@@ -42,7 +42,7 @@ public interface IAppDbContext
 {
     DbSet<PortfolioUser> Users { get; }
     DbSet<Message> Messages { get; }
-    DbSet<PortfolioArticles> PortfolioArticles { get; }
+    DbSet<PortfolioArticle> PortfolioArticles { get; }
 
     DbSet<TEntity> Set<TEntity>() where TEntity : class;
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

@@ -9,6 +9,7 @@ using Portfolio.Api.Feature.Auth.Login;
 using Portfolio.Api.Feature.Auth.Register;
 using Portfolio.Api.Feature.Messaging.GetMessage;
 using Portfolio.Api.Feature.Messaging.PostMessage;
+using Portfolio.Api.Feature.PortfolioArticles.PostPortfolioArticle;
 using Portfolio.Api.Feature.UploadImage.GetImage;
 using Portfolio.Api.Feature.UploadImage.PostImage;
 using Portfolio.Api.Shared.Behaviours;
@@ -37,10 +38,10 @@ builder.Services.AddOpenApi(options =>
             }
         };
 
-        document.Servers = new List<OpenApiServer>
-        {
-            new OpenApiServer { Url = "https://jimmytjotola.org" }
-        };
+        //document.Servers = new List<OpenApiServer>
+        //{
+        //    new OpenApiServer { Url = "https://jimmytjotola.org" }
+        //};
 
         document.Components ??= new OpenApiComponents();
         document.Components.SecuritySchemes.Add("Bearer", new OpenApiSecurityScheme
@@ -122,6 +123,7 @@ PostMessageEndpoint.MapEndpoint(app);
 GetAllMessagesEndpoint.MapEndpoint(app);
 PostImageEndpoint.MapEndpoint(app);
 GetImageEndpoint.MapEndpoint(app);
+PostPortfolioArticleEndpoint.MapEndpoint(app);
 // Database initialization
 using (var scope = app.Services.CreateScope())
 {

@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Feature\PortfolioArticles\DeletePortfolioArticle\" />
+    <Folder Include="Feature\PortfolioArticles\GetPortfolioArticle\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
