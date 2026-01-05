@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Feature\PortfolioArticles\DeletePortfolioArticle\" />
-    <Folder Include="Feature\PortfolioArticles\GetPortfolioArticle\" />
+    <Folder Include="Features\PortfolioArticles\DeletePortfolioArticle\" />
+    <Folder Include="Features\PortfolioArticles\GetPortfolioArticle\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
