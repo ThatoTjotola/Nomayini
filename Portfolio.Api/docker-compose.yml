@@ -2,8 +2,8 @@
 
 services:
   api:
-    image: mcr.microsoft.com/dotnet/aspnet:9.0-bookworm-slim-arm64v8
-    container_name: user-api
+    image: mcr.microsoft.com/dotnet/aspnet:10.0-bookworm-slim-arm64v8
+    container_name: portfolio-api
     restart: unless-stopped
     ports:
       - "5000:80"
@@ -16,7 +16,7 @@ services:
       - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__DefaultConnection=Data Source=/app/data/auth.db
     working_dir: /app
-    command: ["dotnet", "User.Api.dll"]
+    command: ["dotnet", "Portfolio.Api.dll"]
 
   gemma:
     image: ollama/ollama:latest
