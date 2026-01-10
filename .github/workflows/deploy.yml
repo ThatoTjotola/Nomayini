@@ -12,6 +12,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    # Adding the permission command here
+    - name: Set full permissions
+      run: sudo chmod -R 777 /home/pi/api/actions-runner/_work/Nomayini/Nomayini/Users.Apis/publish .
+
     - name: Use local .NET 9 SDK
       run: |
         echo "Using local .NET 9 SDK"
@@ -32,7 +36,8 @@ jobs:
 
     - name: Restart Docker Compose
       run: |
-        cd /home/pi/api/actions-runner/_work/Nomayini/Nomayini/Users.Apis
+        cd /home/pi/api
+        # Added here as well to ensure the target folder is accessible
+        sudo chmod -R 777 .
         docker compose down
         docker compose up -d --build
-
