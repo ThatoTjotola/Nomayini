@@ -1,15 +1,25 @@
-# Stage 1: Build/Publish the API
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0-bookworm-slim AS build
 WORKDIR /src
-COPY ["/","Portfolio/Portfolio.Api/"]
 
-WORKDIR /src/Portfolio/Portfolio.Api
-RUN dotnet restore "./Portfolio.Api.csproj" -a linux/arm64
-RUN dotnet build "./Portfolio.Api.csproj" -c Release -o /app/build
 
-RUN dotnet publish "./Portfolio.Api.csproj" -c Release -o /app/publish -a linux/arm64 --self-contained false
+COPY ["Portfolio.Api/Portfolio.Api.csproj", "Portfolio.Api/"]
 
-FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:10.0 AS run
+RUN dotnet restore "Portfolio.Api/Portfolio.Api.csproj" -a linux/arm64
+
+COPY . .
+
+WORKDIR "/src/Portfolio.Api"
+RUN dotnet publish "Portfolio.Api.csproj" \
+    -c Release \
+    -o /app/publish \
+    -a linux/arm64 \
+    --self-contained false \
+    /p:UseAppHost=false
+
+# Use the small ASP.NET 10 runtime image for the Raspberry Pi
+FROM mcr.microsoft.com/dotnet/aspnet:10.0-bookworm-slim-arm64v8 AS final
 WORKDIR /app
 COPY --from=build /app/publish .
+
 ENTRYPOINT ["dotnet", "Portfolio.Api.dll"]
