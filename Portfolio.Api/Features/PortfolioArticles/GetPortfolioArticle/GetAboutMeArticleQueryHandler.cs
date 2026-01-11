@@ -10,7 +10,7 @@ namespace Portfolio.Api.Features.PortfolioArticles.GetPortfolioArticle
             CancellationToken cancellationToken)
         {
             return await db.PortfolioArticles
-                 .Where(pa => pa.Id == 5)
+                 .Where(pa => pa.Id == 10)
                  .Select(m => new GetAboutMeArticleResponse(
                      m.PortfolioContent
                      ))
