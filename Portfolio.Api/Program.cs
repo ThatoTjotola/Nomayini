@@ -112,7 +112,7 @@ app.MapScalarApiReference(options =>
 {
     options
         .WithTitle("Portfolio Api")
-        .WithTheme(ScalarTheme.Purple)
+        .WithTheme(ScalarTheme.Laserwave)
         .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
 });
 app.UseAuthentication();
