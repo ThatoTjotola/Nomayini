@@ -21,7 +21,10 @@ jobs:
     - name: Build and Push to Docker Hub
       run: |
         # Build specifically for ARM64 
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/portfolio:latest --platform linux/arm64 .
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/portfolio:latest \
+          --platform linux/arm64 \
+          -f ./Portfolio.Api/Dockerfile .
+
         docker push ${{ secrets.DOCKER_USERNAME }}/portfolio:latest
 
     - name: Pull and Restart on Server
