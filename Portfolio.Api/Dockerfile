@@ -1,5 +1,5 @@
 
-FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:10.0 mcr.microsoft.com/dotnet/sdk:10.0 AS build
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
 
@@ -17,8 +17,7 @@ RUN dotnet publish "Portfolio.Api.csproj" \
     --self-contained false \
     /p:UseAppHost=false
 
-# Use the small ASP.NET 10 runtime image for the Raspberry Pi
-FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:10.0 AS final
+FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:10.0 AS run
 WORKDIR /app
 COPY --from=build /app/publish .
 
