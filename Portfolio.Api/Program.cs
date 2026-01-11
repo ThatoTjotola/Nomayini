@@ -12,6 +12,7 @@ using Portfolio.Api.Feature.Messaging.PostMessage;
 using Portfolio.Api.Feature.PortfolioArticles.PostPortfolioArticle;
 using Portfolio.Api.Feature.UploadImage.GetImage;
 using Portfolio.Api.Feature.UploadImage.PostImage;
+using Portfolio.Api.Features.PortfolioArticles.GetPortfolioArticle;
 using Portfolio.Api.Shared.Behaviours;
 using Scalar.AspNetCore;
 
@@ -38,10 +39,10 @@ builder.Services.AddOpenApi(options =>
             }
         };
 
-        //document.Servers = new List<OpenApiServer>
-        //{
-        //    new OpenApiServer { Url = "https://jimmytjotola.org" }
-        //};
+        document.Servers = new List<OpenApiServer>
+        {
+            new OpenApiServer { Url = "https://jimmytjotola.org" }
+        };
 
         document.Components ??= new OpenApiComponents();
         document.Components.SecuritySchemes.Add("Bearer", new OpenApiSecurityScheme
@@ -117,6 +118,7 @@ app.MapScalarApiReference(options =>
 app.UseAuthentication();
 app.UseAuthorization();
 // Map application endpoints
+GetAboutMeArticleEndpoint.MapEndpoint(app);
 RegisterEndpoint.MapEndpoint(app);
 LoginEndpoint.MapEndpoint(app);
 PostMessageEndpoint.MapEndpoint(app);
