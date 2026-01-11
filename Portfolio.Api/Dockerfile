@@ -1,5 +1,5 @@
 
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0-bookworm-slim AS build
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
 
@@ -18,7 +18,7 @@ RUN dotnet publish "Portfolio.Api.csproj" \
     /p:UseAppHost=false
 
 # Use the small ASP.NET 10 runtime image for the Raspberry Pi
-FROM mcr.microsoft.com/dotnet/aspnet:10.0-bookworm-slim-arm64v8 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:10.0-bookworm AS final
 WORKDIR /app
 COPY --from=build /app/publish .
 
