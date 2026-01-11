@@ -51,7 +51,7 @@ namespace Portfolio.Api.Shared.Behaviours;
                 _ => new ProblemDetailsException(
                     StatusCodes.Status500InternalServerError,
                     "Internal Server Error",
-                    ex.Message)
+                    ex.Message,ex.InnerException)
             };
         }
     }
