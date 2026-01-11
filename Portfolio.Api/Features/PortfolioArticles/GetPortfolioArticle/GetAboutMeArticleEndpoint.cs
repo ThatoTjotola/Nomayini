@@ -12,7 +12,7 @@ namespace Portfolio.Api.Features.PortfolioArticles.GetPortfolioArticle
                 return Results.Ok(response);
             }).AllowAnonymous()
             .WithSummary("About Me")
-            .WithDescription("All you mignt need to know About Me and stuff like that ")
+            .WithDescription("All you need to know About Me and stuff like that ")
             .Produces(StatusCodes.Status200OK)
              .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
