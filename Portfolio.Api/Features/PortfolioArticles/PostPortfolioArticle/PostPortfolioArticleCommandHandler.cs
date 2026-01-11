@@ -16,7 +16,7 @@ namespace Portfolio.Api.Feature.PortfolioArticles.PostPortfolioArticle
             var portfolio = new PortfolioArticle
             {
                 PortfolioContent = command.article,
-                Id = 5
+                Id = command.id
             };
 
             db.PortfolioArticles.Add(portfolio);
