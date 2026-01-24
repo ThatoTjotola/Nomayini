@@ -7,8 +7,9 @@ public class KafkaProducerService : IKafkaProducerService
     private readonly IProducer<Null, string> _producer;
 
     // Constructor to initialize Kafka producer with configuration
-    public KafkaProducerService()
+    public KafkaProducerService(IConfiguration configuration)
     {
+        var bootstrapServers = configuration["Kafka:BootstrapServers"] ?? "localhost:9092";
         var config = new ProducerConfig
         {
             BootstrapServers = "localhost:9092"
