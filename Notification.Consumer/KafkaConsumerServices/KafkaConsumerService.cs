@@ -10,7 +10,8 @@ public class KafkaConsumerService : IKafkaConsumerService
     {
         var config = new ConsumerConfig
         {
-            BootstrapServers = "192.168.8.101:9092",
+            //192.168.8.101:9092
+            BootstrapServers = "localhost:9092",
             GroupId = "my-notification-group",
             AutoOffsetReset = AutoOffsetReset.Earliest
         };
@@ -31,13 +32,15 @@ public class KafkaConsumerService : IKafkaConsumerService
                 Console.WriteLine($"Consumed message: {consumeResult.Message.Value}");
                 _consumer.Commit(consumeResult);
                 //send email after consumption 
-                await _emailService.SendEmail();
+                await _emailService.SendEmail("someone is learning about you" ,"Hey someone just learnts something about you");
             }
         }
         catch (ConsumeException e)
         {
             _consumer.Close();
             Console.WriteLine($"Error consuming message: {e.Error.Reason}");
+            //send email of excepiton in regards to consumption
+            await _emailService.SendEmail(e.ToString(),e.ToString());
         }
     }
 }

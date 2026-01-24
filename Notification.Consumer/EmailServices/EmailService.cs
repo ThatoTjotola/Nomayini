@@ -9,7 +9,7 @@ public class EmailService(ILogger<EmailService> logger) :IEmailService
     /// email sending logic here to my google account , invoked when someone consumes a message from kafka topic
     /// </summary>
     /// <returns></returns>
-    public async Task SendEmail()
+    public async Task SendEmail(string subject,string content)
     {
         try
         {
@@ -18,10 +18,10 @@ public class EmailService(ILogger<EmailService> logger) :IEmailService
             message.From.Add(from);
             var to = new MailboxAddress("Jimmy Tjotola", "tjotolajimmy@gmail.com");
             message.To.Add(to);
-            message.Subject = "Someone has learnt something about you";
+            message.Subject = subject;
             message.Body = new TextPart("plain")
             {
-                Text = "This is a notification email sent from the Kafka consumer service notifiying you my good someone has learnt something about you."
+                Text = content
             };
             using var smtp = new SmtpClient();
             await smtp.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
