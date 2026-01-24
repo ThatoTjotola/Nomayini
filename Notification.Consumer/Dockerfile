@@ -3,24 +3,23 @@ ARG BUILDPLATFORM
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-# 1. Be explicit with the filename to avoid wildcard issues
-COPY Notification.Consumer.csproj ./
+# 1. Copy from the subfolder relative to the root context
+COPY ["Notification.Consumer/Notification.Consumer.csproj", "Notification.Consumer/"]
 
-# 2. (Optional Debug) List files to verify the csproj is actually there
-RUN ls -la
+# 2. Restore using the subfolder path
+RUN dotnet restore "Notification.Consumer/Notification.Consumer.csproj" -r linux-arm64
 
-# 3. Restore for the specific architecture
-RUN dotnet restore "Notification.Consumer.csproj" -r linux-arm64
-
-# 4. Copy everything else
+# 3. Copy the entire repository context
 COPY . .
 
-# 5. Build and Publish
-RUN dotnet publish "Notification.Consumer.csproj" -c Release -o /app/publish -r linux-arm64 --self-contained false
+# 4. Change directory to the project folder for publishing
+WORKDIR "/src/Notification.Consumer"
+RUN dotnet publish "Notification.Consumer.csproj" -c Release -o /app -r linux-arm64 --self-contained false
 
 # Stage 2: Run
-FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/runtime:10.0 AS final
+# Using 'runtime' instead of 'sdk' for the final image makes it much smaller
+FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/runtime:10.0 AS run
 WORKDIR /app
-COPY --from=build /app/publish .
+COPY --from=build /app .
 
 ENTRYPOINT ["dotnet", "Notification.Consumer.dll"]
