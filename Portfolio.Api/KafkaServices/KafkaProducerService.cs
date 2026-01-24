@@ -1,11 +1,6 @@
 ﻿using Confluent.Kafka;
 
-namespace Portfolio.Producer;
-
-public interface IKafkaProducerService
-{
-    Task SendMessageAsync(string topic, string message);
-}
+namespace Portfolio.Api.KafkaServices;
 
 public class KafkaProducerService : IKafkaProducerService
 {

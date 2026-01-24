@@ -13,6 +13,7 @@ using Portfolio.Api.Feature.PortfolioArticles.PostPortfolioArticle;
 using Portfolio.Api.Feature.UploadImage.GetImage;
 using Portfolio.Api.Feature.UploadImage.PostImage;
 using Portfolio.Api.Features.PortfolioArticles.GetPortfolioArticle;
+using Portfolio.Api.KafkaServices;
 using Portfolio.Api.Shared.Behaviours;
 using Scalar.AspNetCore;
 
@@ -41,7 +42,7 @@ builder.Services.AddOpenApi(options =>
 
         document.Servers = new List<OpenApiServer>
         {
-            new OpenApiServer { Url = "https://jimmytjotola.org" }
+            new OpenApiServer { Url = "https://localhost:7174" }
         };
 
         document.Components ??= new OpenApiComponents();
@@ -72,6 +73,7 @@ builder.Services.AddOpenApi(options =>
 // Register custom authentication services
 builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
 builder.Services.AddSingleton<IJwtService, JwtService>();
+builder.Services.AddSingleton<IKafkaProducerService, KafkaProducerService>();
 
 // Configure EF Core with SQLite
 builder.Services.AddDbContext<AppDbContext>(options =>
