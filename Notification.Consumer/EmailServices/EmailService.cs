@@ -25,7 +25,7 @@ public class EmailService(ILogger<EmailService> logger) :IEmailService
             };
             using var smtp = new SmtpClient();
             await smtp.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
-            await smtp.AuthenticateAsync("tjotolajimmy@gmail.com", "ogxn ewdi ybaa tswi");
+            await smtp.AuthenticateAsync("thatotjotola@gmail.com", "ibyc eegp clgn xjpm");
             await smtp.SendAsync(message);
             await smtp.DisconnectAsync(true);
         }
