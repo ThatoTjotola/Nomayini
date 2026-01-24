@@ -42,7 +42,7 @@ builder.Services.AddOpenApi(options =>
 
         document.Servers = new List<OpenApiServer>
         {
-            new OpenApiServer { Url = "https://localhost:7174" }
+            new OpenApiServer { Url = "https://jimmytjotola.org" }
         };
 
         document.Components ??= new OpenApiComponents();
