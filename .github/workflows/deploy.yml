@@ -53,5 +53,4 @@ jobs:
 
         
         docker compose up --scale notification-service=4 -d
-        
-        //192.168.8.101:9092
+    
