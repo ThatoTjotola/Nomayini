@@ -23,6 +23,7 @@ public class EmailService(ILogger<EmailService> logger) :IEmailService
             {
                 Text = content
             };
+            //use a scoped using here for memory managements
             using var smtp = new SmtpClient();
             await smtp.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
             await smtp.AuthenticateAsync("thatotjotola@gmail.com", "ibyc eegp clgn xjpm");
