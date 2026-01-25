@@ -4,6 +4,7 @@ namespace Notification.Consumer.KafkaConsumerServices;
 public class KafkaConsumerService : IKafkaConsumerService
 {
     private readonly IConsumer<Null, string> _consumer;
+    //Gotta think about making this a singleton in the future and inject service factory here
     private readonly IEmailService _emailService;
 
     public KafkaConsumerService(IEmailService emailService, IConfiguration configuration)
@@ -11,7 +12,6 @@ public class KafkaConsumerService : IKafkaConsumerService
         var bootstrapServers = configuration["Kafka:BootstrapServers"] ?? "localhost:9092";
         var config = new ConsumerConfig
         {
-            //192.168.8.101:9092
             BootstrapServers = bootstrapServers,
             GroupId = "my-notification-group",
             AutoOffsetReset = AutoOffsetReset.Earliest
