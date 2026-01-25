@@ -33,7 +33,7 @@ public class KafkaConsumerService : IKafkaConsumerService
                 Console.WriteLine($"Consumed message: {consumeResult.Message.Value}");
                 _consumer.Commit(consumeResult);
                 //send email after consumption 
-                await _emailService.SendEmail("someone is learning about you" ,"Hey someone just learnts something about you");
+               // await _emailService.SendEmail(consumeResult.Message.Value.ToString(), consumeResult.Message.Value.ToString());
             }
         }
         catch (ConsumeException e)
@@ -41,7 +41,7 @@ public class KafkaConsumerService : IKafkaConsumerService
             _consumer.Close();
             Console.WriteLine($"Error consuming message: {e.Error.Reason}");
             //send email of excepiton in regards to consumption
-            await _emailService.SendEmail(e.ToString(),e.ToString());
+            await _emailService.SendEmail(e.Error.Reason, e.ToString());
         }
     }
 }
