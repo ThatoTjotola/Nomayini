@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Scalar.AspNetCore;
 
 namespace Portfolio.Api.Feature.Auth.Login
 {
@@ -29,6 +30,7 @@ namespace Portfolio.Api.Feature.Auth.Login
             .Produces<LoginResponse>(StatusCodes.Status200OK, contentType: "application/json")
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status401Unauthorized)
+            .Stable()
             .WithOpenApi();
     }
 }
