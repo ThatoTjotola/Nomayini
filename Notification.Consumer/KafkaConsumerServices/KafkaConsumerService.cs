@@ -33,7 +33,7 @@ public class KafkaConsumerService : IKafkaConsumerService
                 Console.WriteLine($"Consumed message: {consumeResult.Message.Value}");
                 _consumer.Commit(consumeResult);
                 //send email after consumption 
-               // await _emailService.SendEmail(consumeResult.Message.Value.ToString(), consumeResult.Message.Value.ToString());
+                await _emailService.SendEmail(consumeResult.Message.Value.ToString(), consumeResult.Message.Value.ToString());
             }
         }
         catch (ConsumeException e)
