@@ -52,5 +52,5 @@ jobs:
         fi
 
         
-        docker compose up --scale notification-service=4 -d
+        docker compose up --scale notification-service=2 -d
     

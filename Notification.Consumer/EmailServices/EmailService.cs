@@ -24,11 +24,14 @@ public class EmailService(ILogger<EmailService> logger) :IEmailService
                 Text = content
             };
             //use a scoped using here for memory managements
-            using var smtp = new SmtpClient();
-            await smtp.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
-            await smtp.AuthenticateAsync("thatotjotola@gmail.com", "ibyc eegp clgn xjpm");
-            await smtp.SendAsync(message);
-            await smtp.DisconnectAsync(true);
+            using (SmtpClient smtp = new SmtpClient())
+            {
+                //figure out a way to do parrallel processing here or something more efficient 
+                await smtp.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
+                await smtp.AuthenticateAsync("thatotjotola@gmail.com", "ibyc eegp clgn xjpm");
+                await smtp.SendAsync(message);
+                await smtp.DisconnectAsync(true);
+            }
         }
         catch (Exception ex)
         {
