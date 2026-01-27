@@ -86,8 +86,7 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPip
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ExceptionPipelineBehavior<,>));
 
 // Configure JWT Authentication
-var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-var secretKey = jwtSettings["Secret"] ?? throw new InvalidOperationException("JWT Secret not configured");
+var secretKey = builder.Configuration["JwtSettings:Secret"];
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -99,7 +98,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuer = false,
             ValidateAudience = false,
             ValidateLifetime = true,
-            ClockSkew = TimeSpan.Zero  // Remove default clock skew for strict expiration validation
+            ClockSkew = TimeSpan.Zero 
         };
     });
 //configure opentelemetry here for monitoring and logging move away from NETDATA

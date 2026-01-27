@@ -14,6 +14,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__DefaultConnection=Data Source=/app/data/portfolio.db
+      - JwtSettings__Secret=placeholderforasecretkey
       # Use the INTERNAL Kafka address
       - Kafka__BootstrapServers=kafka:29092
     working_dir: /app
@@ -25,6 +26,9 @@ services:
     container_name: notification-service
     user: root
     restart: unless-stopped
+    environment:
+    - Kafka__BootstrapServers=kafka:29092
+    - Google__Password=placeholderformypassword
 
   kafka:
     image: apache/kafka:latest
