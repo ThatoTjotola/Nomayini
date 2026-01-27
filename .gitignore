@@ -364,3 +364,5 @@ FodyWeavers.xsd
 /Portfolio.Api/portfolio.db
 /Portfolio.Api/portfolio.db-shm
 /Portfolio.Api/portfolio.db-wal
+/Notification.Consumer/appsettings.Development.json
+/Portfolio.Api/appsettings.Development.json
