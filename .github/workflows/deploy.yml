@@ -2,7 +2,7 @@ name: Deploy to JimmyServer
 
 on:
   push:
-    branches: [ Feature/FINTUV9898_EventDrivenArchitecture ]
+    branches: [ master]
 
 jobs:
   build-and-deploy:

@@ -7,7 +7,7 @@ namespace Notification.Consumer;
 public class EmailService(ILogger<EmailService> logger , IOptions<GoogleSettings> googleSettings, IConfiguration configuration) :IEmailService
 {
     private readonly GoogleSettings _googleSettings = googleSettings.Value;
-    const string myEmail = "tjotolajimmy@gmail.com";
+    private const string myEmail = "tjotolajimmy@gmail.com";
     /// <summary>
     /// email sending logic here to my google account , invoked when someone consumes a message from kafka topic
     /// </summary>
