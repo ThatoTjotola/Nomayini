@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Scalar.AspNetCore;
 
 namespace Portfolio.Api.Feature.Auth.Register
 {
@@ -20,6 +21,7 @@ namespace Portfolio.Api.Feature.Auth.Register
             .Produces(StatusCodes.Status201Created, contentType: "application/json")
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status409Conflict)
+            .Stable()
             .WithOpenApi();
         }
 

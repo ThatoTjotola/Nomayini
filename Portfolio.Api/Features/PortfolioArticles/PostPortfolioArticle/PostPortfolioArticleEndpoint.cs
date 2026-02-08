@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Scalar.AspNetCore;
 
 namespace Portfolio.Api.Feature.PortfolioArticles.PostPortfolioArticle
 {
@@ -14,6 +15,8 @@ namespace Portfolio.Api.Feature.PortfolioArticles.PostPortfolioArticle
             {
                 await mediator.Send(command);
             }).WithDisplayName("Add a article")
+            .Experimental()
+            .ExcludeFromApiReference()
             .WithSummary("Adds a article to portfolio");
         }
     }

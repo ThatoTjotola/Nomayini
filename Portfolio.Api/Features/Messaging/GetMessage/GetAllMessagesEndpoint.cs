@@ -17,6 +17,7 @@ namespace Portfolio.Api.Feature.Messaging.GetMessage
             .Produces(StatusCodes.Status200OK)
              .Produces(StatusCodes.Status400BadRequest)
              .Produces(StatusCodes.Status401Unauthorized)
+             .ExcludeFromDescription()
             .WithOpenApi();
         }
 

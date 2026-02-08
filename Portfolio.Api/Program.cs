@@ -13,6 +13,7 @@ using Portfolio.Api.Feature.PortfolioArticles.PostPortfolioArticle;
 using Portfolio.Api.Feature.UploadImage.GetImage;
 using Portfolio.Api.Feature.UploadImage.PostImage;
 using Portfolio.Api.Features.PortfolioArticles.GetPortfolioArticle;
+using Portfolio.Api.KafkaServices;
 using Portfolio.Api.Shared.Behaviours;
 using Scalar.AspNetCore;
 
@@ -72,6 +73,7 @@ builder.Services.AddOpenApi(options =>
 // Register custom authentication services
 builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
 builder.Services.AddSingleton<IJwtService, JwtService>();
+builder.Services.AddSingleton<IKafkaProducerService, KafkaProducerService>();
 
 // Configure EF Core with SQLite
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -84,8 +86,7 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPip
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ExceptionPipelineBehavior<,>));
 
 // Configure JWT Authentication
-var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-var secretKey = jwtSettings["Secret"] ?? throw new InvalidOperationException("JWT Secret not configured");
+var secretKey = builder.Configuration["JwtSettings:Secret"];
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -97,7 +98,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuer = false,
             ValidateAudience = false,
             ValidateLifetime = true,
-            ClockSkew = TimeSpan.Zero  // Remove default clock skew for strict expiration validation
+            ClockSkew = TimeSpan.Zero 
         };
     });
 //configure opentelemetry here for monitoring and logging move away from NETDATA

@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Scalar.AspNetCore;
 
 namespace Portfolio.Api.Feature.Messaging.PostMessage;
 public class PostMessageEndpoint
@@ -13,6 +14,7 @@ public class PostMessageEndpoint
 
         }).RequireAuthorization()
         .DisableAntiforgery()
+        .Stable()
         .WithSummary("Post a message too all the other users")
             .WithDescription("This just posts a message(post) too users youll need too be authenticated in first")
             .Produces(StatusCodes.Status201Created)
