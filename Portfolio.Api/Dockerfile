@@ -13,7 +13,7 @@ WORKDIR "/src/Portfolio.Api"
 RUN dotnet publish "Portfolio.Api.csproj" -c Release -o /app -r linux-arm64 --self-contained false
 
 # Stage 2: Run
-FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/runtime:10.0 AS run
+FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:10.0 AS run
 WORKDIR /app
 # Copy everything from /app in build to /app here
 COPY --from=build /app .
