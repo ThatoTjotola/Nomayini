@@ -29,6 +29,7 @@ services:
     environment:
     - Kafka__BootstrapServers=kafka:29092
     - Google__Password=placeholderformypassword
+    - NotifyerSettings_EnableEmailSendTrue=true
 
   kafka:
     image: apache/kafka:latest
