@@ -16,9 +16,7 @@ COPY . .
 WORKDIR "/src/Notification.Consumer"
 RUN dotnet publish "Notification.Consumer.csproj" -c Release -o /app -r linux-arm64 --self-contained false
 
-# Stage 2: Run
-# Using 'runtime' instead of 'sdk' for the final image makes it much smaller
-FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/runtime:10.0 AS run
+FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:10.0 AS run
 WORKDIR /app
 COPY --from=build /app .
 
