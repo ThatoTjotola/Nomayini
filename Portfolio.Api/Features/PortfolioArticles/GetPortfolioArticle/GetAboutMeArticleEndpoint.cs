@@ -18,7 +18,7 @@ namespace Portfolio.Api.Features.PortfolioArticles.GetPortfolioArticle
                 {
                     myList.Add(1);
                 }
-                await service.SendMessageAsync("reaching-outs", $"someone is learning about you at this time user number {myList.Count()}");
+                await service.SendMessageAsync("reaching-out", $"someone is learning about you at this time user number {myList.Count()}");
                 return Results.Ok(response);
             }).AllowAnonymous()
             .WithSummary("About Me")
